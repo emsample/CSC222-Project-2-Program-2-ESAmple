@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cmath>
+#include <iomanip>
 #include <fstream>
 #include <string>
 using namespace std;
@@ -8,7 +8,7 @@ const int students = 150;
 bool readData(string[], int[][tests], int&);
 void avgFinder(double[], const int[][tests], int&);
 void gradeAssigned(char[], double[], int&);
-void gradeReport(char[], string[], double[]);
+void gradeReport(char[], string[], double[], int&);
 int main()
 {
 	int number = 0;
@@ -36,6 +36,7 @@ void avgFinder(double gpa[], const int data[][tests], int& size)
 			sum += data;
 		gpa[i] = static_cast<double>(sum) / tests;        //wanted to avoid integer division, an 89.5 is an A in my gradebook
 	}
+	return;
 }
 void gradeAssigned(char book[], double final[], int& max)
 {
@@ -52,9 +53,16 @@ void gradeAssigned(char book[], double final[], int& max)
 		if (final[i] < 59.5)
 			book[i] = 'F';
 	}
+	return;
 }
-void gradeReport(char abc[], string nomen[], double testavg[])
+void gradeReport(char abc[], string nomen[], double testavg[], int& number)
 {
-	cout << left << setw(20) << "Student" << setw(10) << "|" << setw(10) << "Average Score" << setw(20) << "Final Grade" << endl;
-	cout << 
+	cout << left << setw(20) << "Student" << setw(10) << "|" << setw(10) << "Average Score" << setw(10) << "|" << setw(10) << "Final Grade" << endl;
+	cout << "---------------------------------------------------------------------------------\n";
+	for (int i = 0; i < number; i++)
+	{
+		cout << left << setw(20) << nomen[i] << setw(10) << "|" << setw(10) << fixed << setprecision(2) << testavg[i] << setw(10) << "|" << setw(10) << abc[i] << endl;
+		cout << "---------------------------------------------------------------------------------\n";
+	}
+	return;
 }
