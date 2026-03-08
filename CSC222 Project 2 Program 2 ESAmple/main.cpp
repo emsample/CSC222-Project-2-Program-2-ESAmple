@@ -4,64 +4,82 @@
 #include <string>
 using namespace std;
 const int tests = 5;
-const int students = 150;
+const int students = 150;												//sets the max number of students it can handle, probably not needed but hey
 bool readData(string[], int[][tests], int&);
 void avgFinder(double[], const int[][tests], int&);
-void gradeAssigned(char[], double[], int&);
-void gradeReport(char[], string[], double[], int&);
+void gradeAssigned(char[], double[], const int);
+void gradeReport(char[], string[], double[], const int);
 int main()
 {
-	int number = 0;
+	int size = 0;
 	string names[students];
 	int scores[students][tests];
 	double average[students];
 	char lettergrade[students];
+	if (!readData(names, scores, size))
+	{
+		cout << "Error opening file, check the file is in the correct location\n";
+		return 1;
+	}
+	avgFinder(average, scores, size);
+	gradeAssigned(lettergrade, average, size);
+	gradeReport(lettergrade, names, average, size);
 }
-bool readData(string llamo[], int grades[][tests], int& total)
+bool readData(string name[], int scores[][tests], int& size)
 {
-	total = 0;
 	ifstream infile("StudenGrades.txt");
 	if (!infile)
 		return false;
-	while (total < students && infile >> llamo[total] >> grades[total][0] >> grades[total][1] >> grades[total][2]) //thought about a for loop but this was less typing and theoretically works
-		total++;
+	for (size; size < students; size++)										//changed this to for loop because hard coding each test looked ugly
+	{
+		if (!(infile >> name[size]))
+		{
+			break;
+		}
+		for (int scores : scores[size])				//ranged based loops are cool I always wondered why it wasn't a thing, turns out it was
+		{
+			infile >> scores;
+		}
+	}
 	return true;
 }
-void avgFinder(double gpa[], const int data[][tests], int& size)
+void avgFinder(double average[], const int scores[][tests], int& size)
 {
 	for (int i = 0; i < size; i++)
 	{
 		int sum = 0;
-		for (int data : data[i])
+		for (int data : scores[i])
+		{
 			sum += data;
-		gpa[i] = static_cast<double>(sum) / tests;        //wanted to avoid integer division, an 89.5 is an A in my gradebook
+		}
+		average[i] = static_cast<double>(sum) / tests;        //wanted to avoid integer division, an 89.5 is an A in my gradebook
 	}
 	return;
 }
-void gradeAssigned(char book[], double final[], int& max)
+void gradeAssigned(char lettergrade[], double average[], const int size)
 {
-	for (int i = 0 ; i<max ; i++)
+	for (int i = 0 ; i<size ; i++)
 	{
-		if (final[i] >= 89.5)
-			book[i] = 'A';
-		if (final[i] >= 79.5 && final[i] < 89.5)
-			book[i] = 'B';
-		if (final[i] >= 69.5 && final[i] < 79.5)
-			book[i] = 'C';
-		if (final[i] >= 59.5 && final[i] < 69.5)
-			book[i] = 'D';
-		if (final[i] < 59.5)
-			book[i] = 'F';
+		if (average[i] >= 89.5)													//normally I'd add brackets but this is really clean without them
+			lettergrade[i] = 'A';
+		if (average[i] >= 79.5 && average[i] < 89.5)
+			lettergrade[i] = 'B';
+		if (average[i] >= 69.5 && average[i] < 79.5)
+			lettergrade[i] = 'C';
+		if (average[i] >= 59.5 && average[i] < 69.5)
+			lettergrade[i] = 'D';
+		if (average[i] < 59.5)
+			lettergrade[i] = 'F';
 	}
 	return;
 }
-void gradeReport(char abc[], string nomen[], double testavg[], int& number)
+void gradeReport(char lettergrade[], string name[], double average[], const int size)
 {
 	cout << left << setw(20) << "Student" << setw(10) << "|" << setw(10) << "Average Score" << setw(10) << "|" << setw(10) << "Final Grade" << endl;			//I pray this works out
 	cout << "---------------------------------------------------------------------------------\n";
-	for (int i = 0; i < number; i++)
+	for (int i = 0; i < size; i++)
 	{
-		cout << left << setw(20) << nomen[i] << setw(10) << "|" << setw(10) << fixed << setprecision(2) << testavg[i] << setw(10) << "|" << setw(10) << abc[i] << endl;
+		cout << left << setw(20) << name[i] << setw(10) << "|" << setw(10) << fixed << setprecision(2) << average[i] << setw(10) << "|" << setw(10) << lettergrade[i] << endl;
 		cout << "---------------------------------------------------------------------------------\n";
 	}
 	return;
