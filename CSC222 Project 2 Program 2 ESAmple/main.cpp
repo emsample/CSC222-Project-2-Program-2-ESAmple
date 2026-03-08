@@ -8,6 +8,7 @@ const int students = 150;
 bool readData(string[], int[][tests], int&);
 void avgFinder(double[], const int[][tests], int&);
 void gradeAssigned(char[], double[], int&);
+void gradeReport(char[], string[], double[]);
 int main()
 {
 	int number = 0;
@@ -16,7 +17,7 @@ int main()
 	double average[students];
 	char lettergrade[students];
 }
-bool readData(string llamo, int grades[][tests], int& total)
+bool readData(string llamo[], int grades[][tests], int& total)
 {
 	total = 0;
 	ifstream infile("StudenGrades.txt");
@@ -40,15 +41,20 @@ void gradeAssigned(char book[], double final[], int& max)
 {
 	for (int i = 0 ; i<max ; i++)
 	{
-		if (final[i] > 89.5)
+		if (final[i] >= 89.5)
 			book[i] = 'A';
-		if (final[i] > 79.5 && final[i] < 89.5)
+		if (final[i] >= 79.5 && final[i] < 89.5)
 			book[i] = 'B';
-		if (final[i] > 69.5 && final[i] < 79.5)
+		if (final[i] >= 69.5 && final[i] < 79.5)
 			book[i] = 'C';
-		if (final[i] > 59.5 && final[i] < 69.5)
+		if (final[i] >= 59.5 && final[i] < 69.5)
 			book[i] = 'D';
 		if (final[i] < 59.5)
 			book[i] = 'F';
 	}
+}
+void gradeReport(char abc[], string nomen[], double testavg[])
+{
+	cout << left << setw(20) << "Student" << setw(10) << "|" << setw(10) << "Average Score" << setw(20) << "Final Grade" << endl;
+	cout << 
 }
