@@ -12,16 +12,16 @@ void gradeReport(char[], string[], double[], const int);
 int main()
 {
 	int size = 0;
-	string names[students];
+	string names[students];																	//all the arrays we need 
 	int scores[students][tests];
 	double average[students];
 	char lettergrade[students];
 	if (!readData(names, scores, size))													//this right here is why bool functions are so useful
 	{
-		cout << "Error opening file, check the file is in the correct location\n";
+		cout << "Error opening file, check the file is in the correct location\n";		//error message
 		return 1;
 	}
-	avgFinder(average, scores, size);
+	avgFinder(average, scores, size);							//looks so simple in main
 	gradeAssigned(lettergrade, average, size);
 	gradeReport(lettergrade, names, average, size);
 }
@@ -29,10 +29,10 @@ bool readData(string name[], int scores[][tests], int& size)
 {
 	ifstream infile("StudentGrades.txt");										//I'm glad I put the error message because this typo would've been hard to find
 	if (!infile)
-		return false;
+		return false;									//here it will activate that previous error message if it fails to open the file
 	for (size; size < students; size++)										//changed this to for loop because hard coding each test looked ugly
 	{
-		if (!(infile >> name[size]))								
+		if (!(infile >> name[size]))								//this stuff hurts my brain to think about how its determining what to store but it works
 		{
 			break;
 		}
@@ -61,7 +61,7 @@ void gradeAssigned(char lettergrade[], double average[], const int size)
 	for (int i = 0 ; i<size ; i++)
 	{
 		if (average[i] >= 89.5)													//normally I'd add brackets but this is really clean without them
-			lettergrade[i] = 'A';
+			lettergrade[i] = 'A';													//like I said, I'm a round up kinda guy
 		if (average[i] >= 79.5 && average[i] < 89.5)
 			lettergrade[i] = 'B';
 		if (average[i] >= 69.5 && average[i] < 79.5)
@@ -76,7 +76,7 @@ void gradeAssigned(char lettergrade[], double average[], const int size)
 void gradeReport(char lettergrade[], string name[], double average[], const int size)
 {
 	cout << left << setw(20) << "Student" << "|" << setw(19) << "Average Score" << "|" << setw(10) << "Final Grade" << endl;			//I pray this works out
-	cout << "---------------------------------------------------------------------------------\n";
+	cout << "---------------------------------------------------------------------------------\n";									//well it worked eventually and looks pretty decent
 	for (int i = 0; i < size; i++)
 	{
 		cout << left << setw(20) << name[i] << setw(10) << "|" << setw(10) << fixed << setprecision(2) << average[i] << setw(10) << "|" << setw(10) << lettergrade[i] << endl;
