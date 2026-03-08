@@ -32,7 +32,7 @@ bool readData(string name[], int scores[][tests], int& size)
 		return false;
 	for (size; size < students; size++)										//changed this to for loop because hard coding each test looked ugly
 	{
-		if (!(infile >> name[size]))
+		if (!(infile >> name[size]))								
 		{
 			break;
 		}
@@ -75,7 +75,7 @@ void gradeAssigned(char lettergrade[], double average[], const int size)
 }
 void gradeReport(char lettergrade[], string name[], double average[], const int size)
 {
-	cout << left << setw(20) << "Student" << setw(10) << "|" << setw(10) << "Average Score" << setw(10) << "|" << setw(10) << "Final Grade" << endl;			//I pray this works out
+	cout << left << setw(20) << "Student" << "|" << setw(19) << "Average Score" << "|" << setw(10) << "Final Grade" << endl;			//I pray this works out
 	cout << "---------------------------------------------------------------------------------\n";
 	for (int i = 0; i < size; i++)
 	{
