@@ -16,7 +16,7 @@ int main()
 	int scores[students][tests];
 	double average[students];
 	char lettergrade[students];
-	if (!readData(names, scores, size))
+	if (!readData(names, scores, size))													//this right here is why bool functions are so useful
 	{
 		cout << "Error opening file, check the file is in the correct location\n";
 		return 1;
@@ -27,7 +27,7 @@ int main()
 }
 bool readData(string name[], int scores[][tests], int& size)
 {
-	ifstream infile("StudenGrades.txt");
+	ifstream infile("StudentGrades.txt");										//I'm glad I put the error message because this typo would've been hard to find
 	if (!infile)
 		return false;
 	for (size; size < students; size++)										//changed this to for loop because hard coding each test looked ugly
@@ -36,7 +36,7 @@ bool readData(string name[], int scores[][tests], int& size)
 		{
 			break;
 		}
-		for (int scores : scores[size])				//ranged based loops are cool I always wondered why it wasn't a thing, turns out it was
+		for (int& scores : scores[size])				//ranged based loops are cool I always wondered why it wasn't a thing, turns out it was
 		{
 			infile >> scores;
 		}
