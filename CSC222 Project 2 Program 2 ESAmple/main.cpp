@@ -57,7 +57,7 @@ void gradeAssigned(char book[], double final[], int& max)
 }
 void gradeReport(char abc[], string nomen[], double testavg[], int& number)
 {
-	cout << left << setw(20) << "Student" << setw(10) << "|" << setw(10) << "Average Score" << setw(10) << "|" << setw(10) << "Final Grade" << endl;
+	cout << left << setw(20) << "Student" << setw(10) << "|" << setw(10) << "Average Score" << setw(10) << "|" << setw(10) << "Final Grade" << endl;			//I pray this works out
 	cout << "---------------------------------------------------------------------------------\n";
 	for (int i = 0; i < number; i++)
 	{
